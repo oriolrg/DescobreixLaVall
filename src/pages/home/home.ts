@@ -10,14 +10,13 @@ import { EstudiantetPage } from '../estudiantet/estudiantet';
 export class HomePage {
 
   constructor(public navCtrl: NavController) {
-        this.navCtrl = navCtrl;
-
+        //this.navCtrl = navCtrl;
   }
   goToAbout(){
         this.navCtrl.push(JocPage);
-    }
-    goToAboutEstudiantet(){
-          this.navCtrl.push(EstudiantetPage);
-      }
+  }
+  goToAboutEstudiantet(){
+        this.navCtrl.push(EstudiantetPage);
+  }
 
 }

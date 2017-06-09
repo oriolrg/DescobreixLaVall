@@ -9,6 +9,8 @@ import { HomePage } from '../pages/home/home';
 import { JocPage } from '../pages/joc/joc';
 import { EstudiantetPage } from '../pages/estudiantet/estudiantet';
 import { Geolocation } from '@ionic-native/geolocation';
+import { PosicioTrackerProvider } from '../providers/posicio-tracker/posicio-tracker';
+import { DatabaseProvider } from '../providers/database/database';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { Geolocation } from '@ionic-native/geolocation';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    Geolocation
+    Geolocation,
+    PosicioTrackerProvider,
+    DatabaseProvider
   ]
 })
 export class AppModule {}
