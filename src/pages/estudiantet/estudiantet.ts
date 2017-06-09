@@ -28,7 +28,7 @@ export class EstudiantetPage {
     },
     {
       titol: 'Portal de la Canal',
-      image: '../../assets/img/portal-de-la-canal.jpg',
+      image: 'assets/img/portal-de-la-canal.jpg',
       content: 'Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.',
       like: '32',
       coment: '42',
@@ -36,7 +36,7 @@ export class EstudiantetPage {
     },
     {
       titol: 'Portal del carrer Estret',
-      image: '../../assets/img/carrer_estret_petit.jpg',
+      image: 'assets/img/carrer_estret_petit.jpg',
       content: 'Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.',
       like: '17',
       coment: '3',
