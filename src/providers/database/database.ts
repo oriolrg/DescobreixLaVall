@@ -11,8 +11,22 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class DatabaseProvider {
 
-  constructor(public http: Http) {
-    console.log('Hello DatabaseProvider Provider');
+  static get parameters() {
+          return [[Http]];
+      }
+  constructor(private http:Http) {
+
   }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad LocalitzacionsPage');
+  }
+  getLocalitzacions(lat,lon) {
+        //var url = 'http://localhost:8000/descobreix/coordenades/12.444/1.234' ;
+        var response = this.http.get('/descobreix/coordenades/12.444/1.234');
+        //alert(response);
+        return response;
+    }
+
 
 }

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { Geolocation, Coordinates} from '@ionic-native/geolocation';
-import { Platform } from 'ionic-angular';
 
 /**
  * Generated class for the EstudiantetPage page.
@@ -19,14 +18,15 @@ export class EstudiantetPage {
   location: Coordinates;
   constructor(public navCtrl: NavController, private geolocation: Geolocation) {
 
-    this.cardItems = [
+    var cardItems = [
       {
         titol: 'Portal del Jardí',
         image: 'assets/img/portal-del-jardi.jpg',
         content: 'Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.',
         like: '12',
         coment: '4',
-        coor: ['42.1371105','1.3']
+        coor: ['42.136617','1.5908918'],
+        dist: 25
       },
       {
         titol: 'Portal de la Canal',
@@ -34,7 +34,8 @@ export class EstudiantetPage {
         content: 'Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.',
         like: '32',
         coment: '42',
-        coor: ['42.1371105','1.3']
+        coor: ['42.137622','1.5906158'],
+        dist: 35
       },
       {
         titol: 'Portal del carrer Estret',
@@ -42,11 +43,11 @@ export class EstudiantetPage {
         content: 'Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.',
         like: '17',
         coment: '3',
-        coor: ['42.1371105','1.3']
+        coor: ['42.137477','1.591435'],
+        dist: 15
       }
     ];
-
-
+      var coordenades ;
       var options = {
         frequency : 1000,
         timeout: 3000,
@@ -59,15 +60,48 @@ export class EstudiantetPage {
       }
 
       var onSuccess = function(position) {
-        var latTest = 42.1372226;
-        var lonTest = 1.5905914;
-        var coorX = position.coords.latitude;
-        var coorY = position.coords.longitude;
-        document.getElementById("lat").textContent = coorX;
-        document.getElementById("lon").textContent = coorY;
+
+        var latTest = 42.137477;
+        var lonTest = 1.591435;
+        //alert(cardItems[0].titol);
+        coordenades = position.coords;
+        document.getElementById("lat").textContent = coordenades.latitude;
+        document.getElementById("lon").textContent = coordenades.longitude;
+        var distancia = calcDistancia(coordenades.latitude, coordenades.longitude, latTest, lonTest)*100000;
+        //TODO mostrar els mes proxims a la posicio, assignar distancia a carditems
+        //this.cardItems[2].dist = 55;
+
+        if(distancia <= 50 ){
+          document.getElementById("dist").innerHTML = String(distancia);
+        }else{
+          document.getElementById("dist").innerHTML = String(distancia);
+        }
       };
+
       navigator.geolocation.watchPosition(onSuccess, onError, options);
       //Todo posició ara funciona correctament. Colocar-ho fora i afegir calcul distancia
+      //console.log(coorX);
+      var calcDistancia = function(coorX, coorY, latTest, lonTest){
+        var difX = coorX-latTest;
+        var difY = coorY-lonTest;
+        var distancia = Math.sqrt( Math.pow(coorX-latTest,2) + Math.pow(coorY-lonTest,2) );
+        //sentit(coorX, coorY, latTest, lonTest)
+        return distancia;
+      };
+      function compare(a, b) {
+        // Use toUpperCase() to ignore character casing
+        const genreA = a.dist;
+        const genreB = b.dist;
+
+        let comparison = 0;
+        if (genreA > genreB) {
+          comparison = 1;
+        } else if (genreA < genreB) {
+          comparison = -1;
+        }
+        return comparison;
+      }
+      this.cardItems = cardItems.sort(compare);
     }
 
 

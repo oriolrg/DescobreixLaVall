@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { JocPage } from '../joc/joc';
 import { EstudiantetPage } from '../estudiantet/estudiantet';
+import { LocalitzacionsPage } from '../localitzacions/localitzacions';
 
 @Component({
   selector: 'page-home',
@@ -17,6 +18,9 @@ export class HomePage {
   }
   goToAboutEstudiantet(){
         this.navCtrl.push(EstudiantetPage);
+  }
+  goToAboutLocalitzacions(){
+        this.navCtrl.push(LocalitzacionsPage);
   }
 
 }
