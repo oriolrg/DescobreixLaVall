@@ -23,6 +23,9 @@ export class DatabaseProvider {
   }
   getLocalitzacions(lat,lon) {
         //var url = 'http://localhost:8000/descobreix/coordenades/12.444/1.234' ;
+        //Per app_id
+        //var response = this.http.get('192.168.1.35/descobreix/coordenades/'+lat+'/'+lon);
+        //Per local
         var response = this.http.get('/descobreix/coordenades/'+lat+'/'+lon);
         //alert(response);
         return response;
