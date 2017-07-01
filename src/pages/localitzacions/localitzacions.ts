@@ -2,6 +2,8 @@
 import { Http } from '@angular/http';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Geolocation, Coordinates} from '@ionic-native/geolocation';
+import { Platform } from 'ionic-angular';
 import { NgPipesModule } from 'ngx-pipes';
 import {ReversePipe} from 'ngx-pipes/src/app/pipes/array/reverse';
 import { DatabaseProvider } from '../../providers/database/database';
@@ -23,14 +25,43 @@ import 'rxjs/add/operator/map';
 export class LocalitzacionsPage {
   localitzacions: Array<any>;
   public items: any;
-  constructor(private reversePipe: ReversePipe, public DatabaseProvider: DatabaseProvider, public navCtrl: NavController, public navParams: NavParams,private http:Http) {
-
+  //private coords: Coordinates = null;
+  map: any;
+  coords : any = { lat: 0, lng: 0 }
+  constructor(
+    private reversePipe: ReversePipe,
+    public DatabaseProvider: DatabaseProvider,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private http:Http,
+    private geolocation: Geolocation,
+    public  platform: Platform
+  ) {
+    //https://reviblog.net/2017/03/07/tutorial-de-ionic-2-crear-una-aplicacion-para-guardar-nuestros-sitios-geolocalizados-parte-2-mostrando-el-mapa/
+    platform.ready().then(() => {
+      // La plataforma esta lista y ya tenemos acceso a los plugins.
+      this.obtenerPosicion();
+    });
+  }
+  obtenerPosicion():any{
+    this.geolocation.getCurrentPosition().then(res => {
+      this.coords.lat = res.coords.latitude;
+      this.coords.lng = res.coords.longitude;
+      console.log(this.coords.lng);
+      this.searchLocalitzacio(this.coords.lat,this.coords.lng);
+    })
+      .catch(
+        (error)=>{
+          console.log(error);
+        }
+      );
   }
   searchLocalitzacio(lon,lat){
     this.DatabaseProvider.getLocalitzacions(lat,lon).subscribe(
       data => {
         //let local = JSON.stringify(data['_body']);
         this.items = JSON.parse(data['_body']);
+
         console.dir(this.items);
         },
 				err => {
@@ -43,7 +74,7 @@ export class LocalitzacionsPage {
     console.log('ionViewDidLoad LocalitzacionsPage');
     this.searchLocalitzacio(1.234,12.444);
   }
-  
+
 
 
 

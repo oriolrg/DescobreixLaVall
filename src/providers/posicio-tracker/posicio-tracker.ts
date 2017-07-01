@@ -13,6 +13,7 @@ import 'rxjs/add/operator/map';
 export class PosicioTrackerProvider {
 
   constructor(private geolocation: Geolocation) {
+    
   }
 
 }

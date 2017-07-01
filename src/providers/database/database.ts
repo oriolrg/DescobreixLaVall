@@ -23,7 +23,7 @@ export class DatabaseProvider {
   }
   getLocalitzacions(lat,lon) {
         //var url = 'http://localhost:8000/descobreix/coordenades/12.444/1.234' ;
-        var response = this.http.get('/descobreix/coordenades/12.444/1.234');
+        var response = this.http.get('/descobreix/coordenades/'+lat+'/'+lon);
         //alert(response);
         return response;
     }
