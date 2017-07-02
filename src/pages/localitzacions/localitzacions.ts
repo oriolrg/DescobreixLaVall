@@ -52,7 +52,7 @@ export class LocalitzacionsPage {
       this.searchLocalitzacio(this.coords.lat,this.coords.lng);
     })
   }
-  searchLocalitzacio(lon,lat){
+  searchLocalitzacio(lat,lon){
     this.DatabaseProvider.getLocalitzacions(lat,lon).subscribe(
       data => {
         //let local = JSON.stringify(data['_body']);

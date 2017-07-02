@@ -28,7 +28,7 @@ export class DatabaseProvider {
         //Per local
         //var url ='/descobreix/coordenades/';
         var response = this.http.get(url+lat+'/'+lon);
-        //alert(url);
+        console.log(url);
         return response;
     }
 
