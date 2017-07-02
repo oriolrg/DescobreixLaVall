@@ -41,20 +41,16 @@ export class LocalitzacionsPage {
     platform.ready().then(() => {
       // La plataforma esta lista y ya tenemos acceso a los plugins.
       this.obtenerPosicion();
+      this.searchLocalitzacio(this.coords.lat,this.coords.lng);
     });
   }
   obtenerPosicion():any{
-    this.geolocation.getCurrentPosition().then(res => {
+    this.geolocation.watchPosition().subscribe(res => {
       this.coords.lat = res.coords.latitude;
       this.coords.lng = res.coords.longitude;
       console.log(this.coords.lng);
       this.searchLocalitzacio(this.coords.lat,this.coords.lng);
     })
-      .catch(
-        (error)=>{
-          console.log(error);
-        }
-      );
   }
   searchLocalitzacio(lon,lat){
     this.DatabaseProvider.getLocalitzacions(lat,lon).subscribe(
@@ -71,8 +67,8 @@ export class LocalitzacionsPage {
 );
   }
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LocalitzacionsPage');
-    this.searchLocalitzacio(1.234,12.444);
+    //alert('ionViewDidLoad LocalitzacionsPage');
+    this.searchLocalitzacio(this.coords.lat,this.coords.lng);
   }
 
 
