@@ -7,6 +7,7 @@ import { Platform } from 'ionic-angular';
 import { NgPipesModule } from 'ngx-pipes';
 import {ReversePipe} from 'ngx-pipes/src/app/pipes/array/reverse';
 import { DatabaseProvider } from '../../providers/database/database';
+import * as Constant from '../../providers/constants';
 import 'rxjs/add/operator/map';
 
 
@@ -37,7 +38,7 @@ export class LocalitzacionsPage {
     private geolocation: Geolocation,
     public  platform: Platform
   ) {
-    //https://reviblog.net/2017/03/07/tutorial-de-ionic-2-crear-una-aplicacion-para-guardar-nuestros-sitios-geolocalizados-parte-2-mostrando-el-mapa/
+    
     platform.ready().then(() => {
       // La plataforma esta lista y ya tenemos acceso a los plugins.
       this.obtenerPosicion();
@@ -48,6 +49,7 @@ export class LocalitzacionsPage {
     this.geolocation.watchPosition().subscribe(res => {
       this.coords.lat = res.coords.latitude;
       this.coords.lng = res.coords.longitude;
+      console.log(this.coords.lat);
       console.log(this.coords.lng);
       this.searchLocalitzacio(this.coords.lat,this.coords.lng);
     })
@@ -55,9 +57,12 @@ export class LocalitzacionsPage {
   searchLocalitzacio(lat,lon){
     this.DatabaseProvider.getLocalitzacions(lat,lon).subscribe(
       data => {
-        //let local = JSON.stringify(data['_body']);
+        //SERVER_NAME_APP_TEST servidor online
+        //SERVER_NAME_LOCAL servudor local
+        //SERVER_NAME_PROXY proxy
+        var url = Constant.SERVER_NAME_APP_TEST+'descobreix/coordenades/';
         this.items = JSON.parse(data['_body']);
-
+        this.items.image = url+this.items.image;
         console.dir(this.items);
         },
 				err => {

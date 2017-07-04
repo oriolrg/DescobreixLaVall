@@ -21,26 +21,41 @@
   <button ion-button color="secondary" (click)="searchLocalitzacio(1.234,12.444)">Go To next</button><br>
   <span id="prova">xxxx</span><br>
 </ion-item>-->
-  <ion-list>
-    <ion-item *ngFor="let item of items | orderBy: 'distancia'">
-      <!--<ion-avatar item-left>
-        <img src="{{item.picture.thumbnail}}">
-      </ion-avatar>-->
 
-      <h2>Id: {{item.id}}</h2>
-      <h3>Nom: {{item.nom}}</h3>
-      <h3>Descripcio: {{item.descripcio}}</h3>
-      <h3>Latitud: {{item.latitud}}</h3>
-      <h3>Longitud :{{item.longitud}}</h3>
-      <h3>Distancia :{{item.distancia}}</h3>
-
-      <!--<ion-icon *ngIf="item.gender=='female'" name="woman" item-left></ion-icon>
-      <ion-icon *ngIf="item.gender=='male'" name="man" item-left></ion-icon>
-
-      <ion-icon name="heart" item-right></ion-icon>
-      <button ion-button item-right color="danger" (click)="buttonClick($event)">Button</button>-->
-
+  <ion-card  *ngFor="let item of items | orderBy: 'distancia'">
+    <ion-item>
+      <h1>{{item.nom}}</h1>
     </ion-item>
+    <img-loader src="http://176.85.190.241/{{item.image}}" useImg></img-loader>
+    <!--<img [src]="item.image"/>-->
+    <ion-card-content>
+    <p>{{item.descripcio}}</p>
+    </ion-card-content>
+    <ion-row>
+      <ion-col>
+        <button ion-button icon-left clear small>
+          <ion-icon name="thumbs-up"></ion-icon>
+          <div>{{item.like}} Likes</div>
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button icon-left clear small>
+          <ion-icon name="text"></ion-icon>
+          <div>{{item.coment}} Comentaris</div>
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <h3>Latitud: {{item.latitud}}</h3>
+      </ion-col>
+      <ion-col>
+        <h3>Longitud :{{item.longitud}}</h3>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <h3>Distancia :{{item.distancia}}</h3>
+    </ion-row>
 
-  </ion-list>
+  </ion-card>
 </ion-content>

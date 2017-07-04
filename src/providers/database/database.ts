@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import * as Constant from '../constants';
 
 /*
   Generated class for the DatabaseProvider provider.
@@ -22,13 +23,12 @@ export class DatabaseProvider {
     console.log('ionViewDidLoad LocalitzacionsPage');
   }
   getLocalitzacions(lat,lon) {
-        //var url = 'http://localhost:8000/descobreix/coordenades/12.444/1.234' ;
-        //Per app_id
-        var url = 'http://192.168.1.55/descobreix/coordenades/';
-        //Per local
-        //var url ='/descobreix/coordenades/';
+        //SERVER_NAME_APP_TEST servidor online
+        //SERVER_NAME_LOCAL servudor local
+        //SERVER_NAME_PROXY proxy
+        var url = Constant.SERVER_NAME_APP_TEST+'descobreix/coordenades/';
         var response = this.http.get(url+lat+'/'+lon);
-        console.log(url);
+        console.log(url+lat+'/'+lon);
         return response;
     }
 
