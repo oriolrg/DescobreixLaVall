@@ -5,19 +5,20 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>localitzacions</ion-title>
+    <ion-title>
+      <img src="assets/img/logo-vdl-mini.png"/> Punts d'interès
+    </ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
-<ion-content padding>
-  <button ion-button color="secondary" (click)="obtenerPosicion()">Iniciar</button>
+<ion-content padding class="home_background">
+
   <h2>Latitud: {{coords.lat}}</h2>
   <h2>Longitud: {{coords.lng}}</h2>
-  <!--<ion-item>
+  <!--<button ion-button color="secondary" (click)="obtenerPosicion()">Iniciar</button>
+  <ion-item>
   <button ion-button color="secondary" (click)="searchLocalitzacio(1.234,12.444)">Go To next</button><br>
   <span id="prova">xxxx</span><br>
 </ion-item>-->
@@ -53,9 +54,9 @@
         <h3>Longitud :{{item.longitud}}</h3>
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-col>
       <h3>Distancia :{{item.distancia}}</h3>
-    </ion-row>
+    </ion-col>
 
   </ion-card>
 </ion-content>

@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Geolocation, Coordinates} from '@ionic-native/geolocation';
 import { Platform } from 'ionic-angular';
+import { LoadingController } from 'ionic-angular';
 import { NgPipesModule } from 'ngx-pipes';
 import {ReversePipe} from 'ngx-pipes/src/app/pipes/array/reverse';
 import { DatabaseProvider } from '../../providers/database/database';
@@ -25,6 +26,7 @@ import 'rxjs/add/operator/map';
 })
 export class LocalitzacionsPage {
   localitzacions: Array<any>;
+  private loading: any;
   public items: any;
   //private coords: Coordinates = null;
   map: any;
@@ -36,12 +38,19 @@ export class LocalitzacionsPage {
     public navParams: NavParams,
     private http:Http,
     private geolocation: Geolocation,
-    public  platform: Platform
+    public  platform: Platform,
+    public loadingController: LoadingController
   ) {
-    
+
     platform.ready().then(() => {
+
       // La plataforma esta lista y ya tenemos acceso a los plugins.
       this.obtenerPosicion();
+      this.loading = this.loadingController.create({
+        content: 'Carregant...'
+      });
+
+      this.loading.present();
       this.searchLocalitzacio(this.coords.lat,this.coords.lng);
     });
   }
@@ -57,6 +66,7 @@ export class LocalitzacionsPage {
   searchLocalitzacio(lat,lon){
     this.DatabaseProvider.getLocalitzacions(lat,lon).subscribe(
       data => {
+
         //SERVER_NAME_APP_TEST servidor online
         //SERVER_NAME_LOCAL servudor local
         //SERVER_NAME_PROXY proxy
@@ -64,11 +74,13 @@ export class LocalitzacionsPage {
         this.items = JSON.parse(data['_body']);
         this.items.image = url+this.items.image;
         console.dir(this.items);
+        this.loading.dismiss();
         },
 				err => {
 					console.log("Error: " + err);
 				},
 () => console.log('Movie Search Complete')
+
 );
   }
   ionViewDidLoad() {
