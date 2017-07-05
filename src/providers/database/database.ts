@@ -23,7 +23,7 @@ export class DatabaseProvider {
     console.log('ionViewDidLoad LocalitzacionsPage');
   }
   getLocalitzacions(lat,lon) {
-        //SERVER_NAME_APP_TEST servidor online
+        //SERVER_NAME_APP_TEST servidor onlines
         //SERVER_NAME_LOCAL servudor local
         //SERVER_NAME_PROXY proxy
         var url = Constant.SERVER_NAME_APP_TEST+'descobreix/coordenades/';
